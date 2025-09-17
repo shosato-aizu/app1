@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <title>投稿編集</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-4">
+  <h2 class="mb-3">投稿編集</h2>
+  <form method="POST" class="card card-body shadow-sm">
+    {{ form.hidden_tag() }}
+    <div class="form-check mb-2">
+      {{ form.cleaned(class="form-check-input") }}
+      {{ form.cleaned.label(class="form-check-label") }}
+    </div>
+    <div class="mb-2">
+      {{ form.flow.label(class="form-label") }}
+      {{ form.flow(class="form-select") }}
+    </div>
+    <div class="mb-2">
+      {{ form.comment.label(class="form-label") }}
+      {{ form.comment(class="form-control", rows=2) }}
+    </div>
+    <div class="mb-2">
+      {{ form.start_time.label(class="form-label") }}
+      {{ form.start_time(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary w-100") }}
+  </form>
+</body>
+</html>

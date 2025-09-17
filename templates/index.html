@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <title>作業記録</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container py-4">
+  <h2 class="mb-3">作業記録</h2>
+
+  <!-- 投稿フォーム -->
+  <form method="POST" class="card card-body mb-4 shadow-sm">
+    {{ form.hidden_tag() }}
+    <div class="form-check mb-2">
+      {{ form.cleaned(class="form-check-input") }}
+      {{ form.cleaned.label(class="form-check-label") }}
+    </div>
+    <div class="mb-2">
+      {{ form.flow.label(class="form-label") }}
+      {{ form.flow(class="form-select") }}
+    </div>
+    <div class="mb-2">
+      {{ form.comment.label(class="form-label") }}
+      {{ form.comment(class="form-control", rows=2) }}
+    </div>
+    <div class="mb-2">
+      {{ form.start_time.label(class="form-label") }}
+      {{ form.start_time(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-success w-100") }}
+  </form>
+
+  <!-- 投稿一覧 -->
+  <table class="table table-striped table-bordered shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>日時</th>
+        <th>ユーザー</th>
+        <th>清掃</th>
+        <th>流量</th>
+        <th>コメント</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+      <tr>
+        <td>{{ post.start_time.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ post.user.username }}</td>
+        <td>{{ '済' if post.cleaned else '未' }}</td>
+        <td>{{ post.flow }}</td>
+        <td>{{ post.comment }}</td>
+        <td>
+          {% if post.user_id == current_user.id %}
+            <a href="{{ url_for('edit', post_id=post.id) }}" class="btn btn-sm btn-outline-primary">編集</a>
+            <a href="{{ url_for('delete', post_id=post.id) }}" class="btn btn-sm btn-outline-danger">削除</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ url_for('logout') }}" class="btn btn-secondary">ログアウト</a>
+</body>
+</html>
