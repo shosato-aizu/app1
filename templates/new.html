@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>新規投稿</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+      <h2 class="mb-4">新規投稿</h2>
+      <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          {{ form.cleaned.label(class="form-label") }}
+          {{ form.cleaned(class="form-check-input") }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.flow.label(class="form-label") }}
+          {{ form.flow(class="form-select") }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.comment.label(class="form-label") }}
+          {{ form.comment(class="form-control", rows="3") }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.start_time.label(class="form-label") }}
+          {{ form.start_time(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">保存する</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary w-100 mt-2">戻る</a>
+      </form>
+    </div>
+  </body>
+</html>

@@ -126,3 +126,22 @@ if __name__ == '__main__':
             db.session.add_all(users)
             db.session.commit()
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+# 投稿フォーム専用ページ
+@app.route("/new", methods=["GET", "POST"])
+@login_required
+def new():
+    form = WorkForm()
+    if form.validate_on_submit():
+        entry = WorkEntry(
+            user_id=current_user.id,
+            cleaned=form.cleaned.data,
+            flow=form.flow.data,
+            comment=form.comment.data,
+            start_time=form.start_time.data,
+        )
+        db.session.add(entry)
+        db.session.commit()
+        flash("投稿を保存しました")
+        return redirect(url_for("index"))
+    return render_template("new.html", form=form)
