@@ -131,7 +131,7 @@ if __name__ == '__main__':
 @app.route("/new", methods=["GET", "POST"])
 @login_required
 def new():
-    form = WorkForm()
+    form = PostForm()
     if form.validate_on_submit():
         entry = WorkEntry(
             user_id=current_user.id,
